@@ -22,59 +22,45 @@ def compute_scores(scores: dict):
     return player_scores
 
 @click.command()
-@click.option('--url', required=True, type=str, help="Stern Insider Leaderboard URL")
-@click.option('--email', default='dwfarrell@gmail.com', show_default=True, required=True, type=str, help='Stern Insider Email')
-@click.option('--password', prompt=True, hide_input=True, confirmation_prompt=False, help='Stern Insider Password')
-def main(url, email, password):
+@click.option('--url', required=True, type=str, help="Stern Insider Leaderboard **Kiosk** URL")
+def main(url):
+    scores = dict()
+    player_names = list()
     options = webdriver.ChromeOptions() 
     options.add_experimental_option("detach", True)
     driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.get('https://insider.sternpinball.com/login')
-
-    element = WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located((By.ID, "email"))
-    )
-
-    driver.find_element("xpath", '//*[@id="email"]').send_keys(email)
-    driver.find_element("xpath", '//*[@id="password"]').send_keys(password)
-    driver.find_element("xpath", '//*[@id="root"]/div/div[1]/div/div/div/div/div/form/button').click()
-    
-    time.sleep(5)
-
     driver.get(url)
-    time.sleep(5)
+    element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.ID, "shuffle"))
+        )
+    time.sleep(1)
 
-    scores = dict()
-    players = list()
+    # run through this twice so we capture the second page of the board
+    for x in range(0, 2):
+        html = driver.page_source
+        soup = BeautifulSoup(str(html), 'html.parser')
+        div = soup.find("div", {"id": "shuffle"})
+        ul = div.find('ul')
+        cards = ul.find_all('li', recursive=False)
+        for card in cards:
+            player_names = list()
+            leaderboard_header = card.find("div", {"class": "leaderboard-header"})
+            title=leaderboard_header.find('p')
+            game_name = title.contents[0]
+            # prevent duplicate scores from being added
+            if game_name in scores:
+                pass
+            players = card.find_all('li')
+            for player in players:
+                name = player.find('p')
+                player_name = name.contents[0]
+                # don't add dan's scores
+                if player_name.lower() != "flex_bt":
+                    player_names.append(player_name)
 
-    html = driver.page_source
-    soup = BeautifulSoup(str(html), 'html.parser')
-    div = soup.find("div", {"id": "shuffle"})
-    ul = div.find('ul')
+            scores[game_name] = player_names
 
-    # machine names and scores show up as list items under the first unsorted list
-    # so we'll parse those to get scores
-    for count, li in enumerate(ul.find_all('li')):
-        text = li.find('p').contents[0]
-        # all machine names include "High Scores" in the text
-        # so we'll key off that to determine if the item is a machine name
-        if "high scores" in text.lower():
-            game = text
-            # if there are players in the list, the prior game is complete
-            # so add the player list to the scores dict
-            if len(players) != 0:
-                scores[game] = players
-            players = list()
-    
-        # otherwise, it's a player, so we add them to the list
-        else:
-            # dont include Dan in the scores
-            if text.lower() != "flex_bt":
-                players.append(text)
-
-        # once we reach this point, it's the last player in the list
-        # so we add the list to scores dict
-        scores[game] = players
+        time.sleep(9)
 
     total_scores = compute_scores(scores)
     sorted_total_scores = dict(sorted(total_scores.items(), key=lambda x: x[1], reverse=True))
