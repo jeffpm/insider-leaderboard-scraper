@@ -35,21 +35,14 @@ def main(url, email, password):
         EC.visibility_of_element_located((By.ID, "email"))
     )
 
-    
-
     driver.find_element("xpath", '//*[@id="email"]').send_keys(email)
     driver.find_element("xpath", '//*[@id="password"]').send_keys(password)
     driver.find_element("xpath", '//*[@id="root"]/div/div[1]/div/div/div/div/div/form/button').click()
     
     time.sleep(5)
-    # element = WebDriverWait(driver, 10).until(
-    #     EC.visibility_of_element_located((By.ID, "root"))
-    # )
-    
-    driver.get(url)
-    # driver.get('https://insider.sternpinball.com/insider/events/fpdgr-PeKmG-mQW?location=1015&fbclid=IwAR3K75mPtWN1-WxgSgFOAtQf3lup7Kga7yl9fZC-bXM_JloEbLOvTERP9t4')
-    time.sleep(5)
 
+    driver.get(url)
+    time.sleep(5)
 
     scores = dict()
     players = list()
