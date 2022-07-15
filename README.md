@@ -2,15 +2,15 @@
 Uses Selenium + BeautifulSoup to load a Stern Insider Leaderboard Kiosk view, scrape the results, and generate overall standings.
 
 ## Pre-requisites
-- Python3 
-- pipenv
+- Python 3.10
+- [pipenv](https://pipenv.pypa.io/en/latest/)
 
 ## Installation
 `pipenv install`
 
+## Running
 `pipenv shell`
 
-## Running
 `pipenv run python app.py --url 'https://insider.sternpinball.com/kiosk/fpdgr-PeKmG-mQW/'`
 
 ### See available command line options
