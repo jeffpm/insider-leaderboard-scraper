@@ -1,43 +1,24 @@
 from bs4 import BeautifulSoup
 import click
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
 import time
 
-def compute_scores(scores: dict):
-    values = [10, 8, 7, 6, 5, 4, 3, 2, 1]
-    player_scores = dict()
-    for game, players in scores.items():
-        for count, player in enumerate(players):
-            if player not in player_scores:
-                player_scores[player] = 0
-
-            # only add their score if they got any points
-            if not count + 1 > len(values):    
-                player_scores[player] += values[count]
-
-    return player_scores
+from library import compute, driver
 
 @click.command()
 @click.option('--url', required=True, type=str, help="Stern Insider Leaderboard **Kiosk** URL")
 def main(url):
     scores = dict()
     player_names = list()
-    options = webdriver.ChromeOptions() 
-    options.add_experimental_option("detach", True)
-    driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.get(url)
-    element = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.ID, "shuffle"))
-        )
+     
+    webdriver = driver.get_webdriver()
+    webdriver.get(url)
+    element = driver.wait_for_element_id(webdriver, "shuffle")
     time.sleep(1)
 
     # run through this twice so we capture the second page of the board
     for x in range(0, 2):
-        html = driver.page_source
+        html = webdriver.page_source
         soup = BeautifulSoup(str(html), 'html.parser')
         div = soup.find("div", {"id": "shuffle"})
         ul = div.find('ul')
@@ -62,7 +43,7 @@ def main(url):
 
         time.sleep(9)
 
-    total_scores = compute_scores(scores)
+    total_scores = compute.compute_scores(scores)
     sorted_total_scores = dict(sorted(total_scores.items(), key=lambda x: x[1], reverse=True))
     print(sorted_total_scores)
 
