@@ -42,10 +42,9 @@ def main(url):
             scores[game_name] = player_names
 
         time.sleep(9)
-
-    total_scores = compute.compute_scores(scores)
-    sorted_total_scores = dict(sorted(total_scores.items(), key=lambda x: x[1], reverse=True))
-    print(sorted_total_scores)
+    computer = compute.Compute()
+    total_scores = computer.get_scores(scores)
+    print(total_scores)
 
 if __name__ == "__main__":
     main()
