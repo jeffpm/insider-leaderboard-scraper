@@ -23,3 +23,11 @@ class Compute:
         self.sort_scores()
 
         return self.player_scores
+
+    def get_scores_list(self):
+        scores_list = list()
+        scores_list.append(("place", "name", "points"))
+        for count, (name, score) in enumerate(self.player_scores.items()):
+            scores_list.append((count + 1, name, score))
+
+        return scores_list

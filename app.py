@@ -1,13 +1,15 @@
 from bs4 import BeautifulSoup
 import click
+from jinja2 import Environment, FileSystemLoader
+import tabulate
 
 import logging
 import os
 import time
 
-from library import compute, driver, insider
+from library import compute, driver, website, insider
 
-LOGLEVEL = os.environ.get('LOGLEVEL', 'WARNING').upper()
+LOGLEVEL = os.environ.get('LOGLEVEL', 'INFO').upper()
 logging.basicConfig(level=LOGLEVEL)
 
 @click.command()
@@ -26,7 +28,7 @@ def main(url, num_pages):
 
     sterninsider = insider.Insider()
     
-    logging.debug(f"running through {num_pages} leaderboard pages")
+    logging.info(f"running through {num_pages} leaderboard pages")
     for x in range(0, num_pages):
         html = webdriver.get_webdriver().page_source
         sterninsider.parse_leaderboard(html)
@@ -41,7 +43,12 @@ def main(url, num_pages):
     scores = sterninsider.get_scores()
     computer = compute.Compute()
     total_scores = computer.get_scores(scores)
-    print(total_scores)
+    logging.info(f"scores: {total_scores}")
+    scores_list = computer.get_scores_list()
+
+    website.make_leaderboard_page(scores_list)
+
+    
 
 if __name__ == "__main__":
     main()

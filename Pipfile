@@ -12,6 +12,8 @@ html5lib = "*"
 selenium = "*"
 webdriver-manager = "*"
 click = "*"
+tabulate = "*"
+jinja2 = "*"
 
 [dev-packages]
 pytest = "*"
