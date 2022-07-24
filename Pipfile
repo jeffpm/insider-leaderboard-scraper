@@ -12,8 +12,11 @@ html5lib = "*"
 selenium = "*"
 webdriver-manager = "*"
 click = "*"
+tabulate = "*"
+jinja2 = "*"
 
 [dev-packages]
+pytest = "*"
 
 [requires]
 python_version = "3.10"
