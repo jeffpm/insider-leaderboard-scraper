@@ -13,7 +13,7 @@ def make_leaderboard_page(scores_list):
     env = Environment( loader = FileSystemLoader(templates_dir) )
     template = env.get_template('index.html')
 
-    filename = os.path.join('html', 'index.html')
+    filename = os.path.join('index.html')
     with open(filename, 'w') as fh:
         fh.write(template.render(
             table = html_table
