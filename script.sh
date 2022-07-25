@@ -4,9 +4,9 @@ cd ~/insider-leaderboard-scraper
 
 git fetch origin
 git checkout gh-pages
-git merge origin/main
+git merge -X ours origin/main --no-commit
 
-pipenv install
+pipenv install --skip-lock
 pipenv run python app.py --url 'https://insider.sternpinball.com/kiosk/fpdgr-PeKmG-mQW/'
 
 git add -A
