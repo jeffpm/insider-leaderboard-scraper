@@ -19,6 +19,14 @@ Uses Selenium + BeautifulSoup to load a Stern Insider Leaderboard Kiosk view, sc
 
 # Running on a recurring basis
 
+## Setup on device
+`sudo apt-get install chromium-chromedriver`
+
+`sudo apt install python3-pip`
+
+`pip install pipenv`
+
+`git config --global user.email "<your_email>"`
 
 1. (cron) clone master
 2. (cron) run script
