@@ -7,8 +7,8 @@ git fetch origin
 git checkout gh-pages
 git merge -X ours origin/main --no-commit
 
-pipenv install --skip-lock
-pipenv run python app.py --url 'https://insider.sternpinball.com/kiosk/fpdgr-PeKmG-mQW/'
+/usr/local/bin/pipenv install --skip-lock
+/usr/local/bin/pipenv run python app.py --url 'https://insider.sternpinball.com/kiosk/fpdgr-PeKmG-mQW/'
 
 git add -A
 timestamp=$(date +%s)
