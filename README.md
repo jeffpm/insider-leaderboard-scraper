@@ -15,3 +15,13 @@ Uses Selenium + BeautifulSoup to load a Stern Insider Leaderboard Kiosk view, sc
 
 ### See available command line options
 `pipenv run python app.py --help`
+
+
+# Running on a recurring basis
+
+
+1. (cron) clone master
+2. (cron) run script
+3. (script) checkout gh-pages
+4. (script) run python app
+5. (script) push changes to gh-pages
