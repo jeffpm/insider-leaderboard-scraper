@@ -39,6 +39,6 @@ class Driver:
 
 
     def wait_for_element_id(self, thename):
-        return WebDriverWait(self.driver, 60).until(
+        return WebDriverWait(self.driver, 120).until(
                 EC.visibility_of_element_located((By.ID, thename))
         )
