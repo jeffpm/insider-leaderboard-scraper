@@ -5,6 +5,7 @@ cd ~/insider-leaderboard-scraper
 
 git fetch origin
 git checkout gh-pages
+git stash push --include-untracked
 git merge -X ours origin/main --no-commit
 
 /usr/local/bin/pipenv install --skip-lock
