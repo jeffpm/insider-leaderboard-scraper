@@ -28,6 +28,7 @@ class Compute:
         scores_list = list()
         scores_list.append(("place", "name", "points"))
         for count, (name, score) in enumerate(self.player_scores.items()):
-            scores_list.append((count + 1, name, score))
+            if score > 0:
+                scores_list.append((count + 1, name, score))
 
         return scores_list
