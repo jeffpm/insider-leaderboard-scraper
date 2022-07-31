@@ -20,15 +20,20 @@ class Compute:
 
     def get_scores(self, scores: dict):
         self.compute_scores(scores)
+        self.drop_zeros()
         self.sort_scores()
 
         return self.player_scores
+
+    def drop_zeros(self):
+        for player, score in self.player_scores.copy().items():
+            if score == 0:
+                del self.player_scores[player]
 
     def get_scores_list(self):
         scores_list = list()
         scores_list.append(("place", "name", "points"))
         for count, (name, score) in enumerate(self.player_scores.items()):
-            if score > 0:
-                scores_list.append((count + 1, name, score))
+            scores_list.append((count + 1, name, score))
 
         return scores_list

@@ -32,7 +32,7 @@ def test_points_get_scores(test_input):
     assert result["player6"] == 3
     assert result["player7"] == 2
     assert result["player8"] == 1
-    assert result["player9"] == 0
+    assert "player9" not in result
 
 def test_sort_scores():
     computer = compute.Compute()
