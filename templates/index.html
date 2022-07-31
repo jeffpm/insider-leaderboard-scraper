@@ -3,12 +3,24 @@
     <head>
         <meta http-equiv="refresh" content="10">
         <style>
-            #container {
+            @media (orientation: landscape) {
+                #container {
                 margin: auto;
                 height: auto;
                 width: 80%;
                 /* background-color: rgb(94, 94, 94); */
+                }
             }
+
+            @media (orientation: portrait) {
+                #container {
+                margin: auto;
+                height: auto;
+                width: 100%;
+                /* background-color: rgb(94, 94, 94); */
+                }
+            }
+            
             body {
                 background-image: url("background.png");    
                 font-family: Helvetica, "Trebuchet MS", Verdana, sans-serif;
@@ -22,14 +34,28 @@
                 font-size: 4em;
             }
 
-            table {
-                border-collapse: collapse;
-                margin: 25px 0;
-                font-size: 1em;
-                min-width: 400px;
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-                margin: auto;
-                width: 50%;
+            @media (orientation: landscape) {
+                table {
+                    border-collapse: collapse;
+                    margin: 25px 0;
+                    font-size: 1em;
+                    min-width: 400px;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+                    margin: auto;
+                    width: 50%;
+                }
+            }
+
+            @media (orientation: portrait) {
+                table {
+                    border-collapse: collapse;
+                    margin: 25px 0;
+                    font-size: 1.75em;
+                    min-width: 400px;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+                    margin: auto;
+                    width: 100%;
+                }
             }
 
             table thead tr {
