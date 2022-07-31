@@ -16,6 +16,13 @@ Uses Selenium + BeautifulSoup to load a Stern Insider Leaderboard Kiosk view, sc
 ### See available command line options
 `pipenv run python app.py --help`
 
+# Updating for a new month
+## HTML Template
+1. Edit the `index.html` file in the `templates` directory
+2. Look for the `<h1>COTU Pinball <month> Leaderboard</h1>` header, and update to the new month.
+
+## Bash script
+1. Edit the `script.sh` script and update the Insider Leadeboard Kiosk URL
 
 # Running on a recurring basis
 
