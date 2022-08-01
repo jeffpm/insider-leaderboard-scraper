@@ -6,7 +6,11 @@ import os
 
 def make_leaderboard_page(scores_list):
     logging.info("producing html table")
-    html_table = tabulate.tabulate(scores_list, headers="firstrow", tablefmt="html", colalign=(None,None,None))
+    try:
+        html_table = tabulate.tabulate(scores_list, headers="firstrow", tablefmt="html", colalign=(None,None,None))
+    except Exception as e:
+        logging.error(e)
+        html_table = "<h2>No scores yet!</h2>"
 
     # root = "../" + os.path.dirname(os.path.abspath(__file__))
     templates_dir = os.path.join('templates')
