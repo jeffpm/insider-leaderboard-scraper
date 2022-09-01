@@ -9,7 +9,7 @@ git stash push --include-untracked
 git merge -X ours origin/main --no-commit
 
 /usr/local/bin/pipenv install --skip-lock
-/usr/local/bin/pipenv run python app.py --url 'https://insider.sternpinball.com/kiosk/NwbEA-JRHaD-PGq'
+/usr/local/bin/pipenv run python app.py --url 'https://insider.sternpinball.com/kiosk/MvB-uPVni-XsPY'
 
 git add -A
 timestamp=$(date +%s)
